@@ -1,0 +1,303 @@
+<html>
+<style>
+input[type=date], input[type=time], input[type=number] {
+ width: 100%;
+ height: 40px;
+}
+select {
+ width: 100%;
+ height: 40px;
+}
+button {
+ height: 30px;
+}
+button[name=submit] {
+ width: 100%;
+ height: 40px;
+}
+table {
+ width: 100%;
+}
+th, td {
+  height: 40px;
+}
+.wrapper {
+ width: 600px;
+}
+.text {
+ padding: 0em 1em;
+}
+.right {
+ text-align: right;
+ padding: 0em 1em;
+}
+.line {
+ padding: 1em;
+}
+#shortcut, #results {
+ padding: 20px 0px;
+}
+#shortcut button {
+ margin: 4px;
+}
+</style>
+<body onload="detect()">
+<div class="wrapper">
+<table>
+  <tr>
+    <td class="text" width="25%">潮汐類型</td>
+	<td colspan="3" width="75%"><select name="tide" onchange="detect()"><option value="ALL">漲退潮</option><option value="H7L3">漲七退三潮</option><option value="H">漲潮</option><option value="L">退潮</option></select></td>
+  </tr>
+  <tr id="rising">
+    <td class="text" width="25%">乾潮時間</td>
+	<td width="25%"><input type="date" name="lowDate" /></td>
+	<td width="25%"><input type="time" name="lowTime" min="00:00" max="23:59" /></td>
+	<td width="25%"><input type="number" name="lowHeight" /></td>
+  </tr>
+  <tr>
+    <td class="text" width="25%">滿潮時間</td>
+	<td width="25%"><input type="date" name="highDate" /></td>
+	<td width="25%"><input type="time" name="highTime" min="00:00" max="23:59" /></td>
+	<td width="25%"><input type="number" name="highHeight" /></td>
+  </tr>
+  <tr id="ebb">
+    <td class="text" width="25%">乾潮時間</td>
+	<td width="25%"><input type="date" name="endDate" /></td>
+	<td width="25%"><input type="time" name="endTime" min="00:00" max="23:59" /></td>
+	<td width="25%"><input type="number" name="endHeight" /></td>
+  </tr>
+  <tr>
+    <td colspan="4" align="center"><hr /><button name="submit" onclick="calc()">計算</button></td>
+  </tr>
+</table>
+<div id="shortcut"></div>
+<div id="results"></div>
+</div>
+<script>
+function isNullOrEmpty(e) {
+  if (typeof e == "undefined" || e.value == "") {
+	return true;
+  }
+  return false;
+}
+function toEmpty(e) {
+  if (typeof e == "undefined" || e.value == "") {
+	return "";
+  }
+}
+function getByName(name) {
+  return document.getElementsByName(name)[0].value;
+}
+function query(e) {
+  var o = document.querySelector(e);
+  if (!isNullOrEmpty(o)) {
+	return o.value;
+  }  
+}
+function toDate(t) {
+  if (!isNullOrEmpty(t)) {
+    return new Date(new Date().setHours(0, 0, 0, 0) + new Date('1970-01-01' + ' ' + t + 'Z').getTime());
+  }
+}
+function toDate(d, t) {
+  if (!isNullOrEmpty(t)) {
+    return new Date(new Date().setHours(0, 0, 0, 0) + new Date(d + ' ' + t + 'Z').getTime());
+  }
+}
+function addMinutes(date, minutes) {
+  date.setMinutes(date.getMinutes() + minutes);
+  return date;
+}
+function toTimeString(date) {
+  if (!isNullOrEmpty(date)) {
+    return date.getHours().toString().padStart(2, "0") + ":" + date.getMinutes().toString().padStart(2, "0");
+  }
+}
+function toDurationString(start, end) {
+  var diff = new Date(end - start);
+  var ss = 60 * 1000;
+  var mm = 60 * ss;
+  var hh = 24 * mm;
+  var h = Math.floor((diff % hh) / mm);
+  var m = Math.round(((diff % hh) % mm) / ss);
+  return "<span>" + h + " 小時 " + m + " 分鐘</span>";
+}
+function getRisingTideData(fishing) {
+  var lowDate = query('input[name="lowDate"]');
+  var lowTime = query('input[name="lowTime"]');
+  var lowHeight = query('input[name="lowHeight"]');
+  var highDate = query('input[name="highDate"]');
+  var highTime = query('input[name="highTime"]');
+  var highHeight = query('input[name="highHeight"]');
+  var diff = (toDate(highDate, highTime)-toDate(lowDate, lowTime))/(60*1000);
+  var ret = '<table border="1">';
+  if (!fishing) {
+    ret += '<tr><th colspan="3">乾潮至滿潮約為 ' + diff + ' 分鐘 ( ' + toDurationString(toDate(lowDate, lowTime), toDate(highDate, highTime)) + ' )</th></tr>';
+  }
+  var time = toDate(lowDate, lowTime);
+  for (var i = 0; i < 10; i++) {
+    if (i == 0) {
+	  if (!fishing) {
+	    ret += '<tr><td class="right" width="50%">乾潮</td><td class="text" width="25%" align="center">' + toTimeString(time) + '</td><td class="text" width="25%" align="center">' + lowHeight + '</td></tr>';
+	  }
+    } else {
+	  if (!fishing) {
+	    ret += '<tr><td class="right" width="50%">漲' + i + '分</td><td class="text" width="25%" align="center">' + toTimeString(time) + '</td><td class="text" width="25%" align="center"></td></tr>';
+	  } else {
+	    if (i >= 7) {
+		  ret += '<tr><td class="right" width="50%">漲' + i + '分</td><td class="text" width="25%" align="center">' + toTimeString(time) + '</td><td class="text" width="25%" align="center"></td></tr>';
+		}
+	  }
+    }
+    time = addMinutes(time, Math.round(diff / 10));
+  }
+  ret += '<tr><td class="right" width="50%">滿潮</td><td class="text" width="25%" align="center">' + toTimeString(toDate(highDate, highTime)) + '</td><td class="text" width="25%" align="center">' + highHeight + '</td></tr>';
+  if (!fishing) {
+    ret += '</table>';
+  }
+  return ret;
+}
+function getEbbTideData(fishing) {
+  var lowDate = query('input[name="endDate"]');
+  var lowTime = query('input[name="endTime"]');
+  var lowHeight = query('input[name="endHeight"]');
+  var highDate = query('input[name="highDate"]');
+  var highTime = query('input[name="highTime"]');
+  var highHeight = query('input[name="highHeight"]');
+  var diff = (toDate(lowDate, lowTime)-toDate(highDate, highTime))/(60*1000);
+  var ret = '';
+  if (!fishing) {
+    ret += '<table border="1">';
+    ret += '<tr><th colspan="3">滿潮至乾潮約為 ' + diff + ' 分鐘 ( ' + toDurationString(toDate(highDate, highTime), toDate(lowDate, lowTime)) + ' )</th></tr>';
+  }
+  var time = toDate(highDate, highTime);
+  for (var i = 0; i < 10; i++) {
+   if (i == 0) {
+     if (!fishing) {
+       ret += '<tr><td class="right" width="50%">滿潮</td><td class="text" width="25%" align="center">' + toTimeString(time) + '</td><td class="text" width="25%" align="center">' + highHeight + '</td></tr>';
+	 }
+   } else {
+     if (!fishing) {
+       ret += '<tr><td class="right" width="50%">退' + i + '分</td><td class="text" width="25%" align="center">' + toTimeString(time) + '</td><td class="text" width="25%" align="center"></td></tr>';
+	 } else {
+	   if (i <= 3) {
+	     ret += '<tr><td class="right" width="50%">退' + i + '分</td><td class="text" width="25%" align="center">' + toTimeString(time) + '</td><td class="text" width="25%" align="center"></td></tr>';
+	   }
+	 }
+   }
+   time = addMinutes(time, Math.round(diff / 10));
+  }
+  if (!fishing) {
+    ret += '<tr><td class="right" width="50%">乾潮</td><td class="text" width="25%" align="center">' + toTimeString(toDate(lowDate, lowTime)) + '</td><td class="text" width="25%" align="center">' + lowHeight + '</td></tr>';
+  }
+  ret += '</table>';
+  return ret;
+}
+function getFishingData() {
+ return getRisingTideData(true) + getEbbTideData(true);
+}
+function detect() {
+  var e = query('select[name="tide"]');
+  if (e == 'H') {
+    document.getElementById("rising").style.visibility = '';
+    document.getElementById("ebb").style.visibility = 'hidden';
+  } else if (e == 'L') {
+    document.getElementById("rising").style.visibility = 'hidden';
+    document.getElementById("ebb").style.visibility = '';
+  } else {
+    document.getElementById("rising").style.visibility = '';
+    document.getElementById("ebb").style.visibility = '';
+  }
+}
+function calc() {
+  var ret = '';
+  var e = query('select[name="tide"]');
+  if (e == 'H7L3') {
+    ret += getFishingData();
+  } else if (e == 'H') {
+    ret += getRisingTideData(false);
+  } else if (e == 'L') {
+    ret += getEbbTideData(false);
+  } else {
+    ret += getRisingTideData(false);
+	ret += '<div class="line"></div>';
+    ret += getEbbTideData(false);
+  }
+  document.getElementById("results").innerHTML = ret;
+}
+
+
+function shortcut() {
+  var D20230730 = {
+   low : { time : '2023-07-30 02:36', height : -26 },
+   high : { time : '2023-07-30 08:29', height : 99 },
+   end : { time : '2023-07-30 15:19', height : -123 }
+  };
+
+  var D20230731 = {
+   low : { time : '2023-07-31 03:46', height : -26 },
+   high : { time : '2023-07-31 09:33', height : 108 },
+   end : { time : '2023-07-31 16:21', height : -138 }
+  };
+
+  var D20230801 = {
+   low : { time : '2023-08-01 04:45', height : -31 },
+   high : { time : '2023-08-01 10:33', height : 121 },
+   end : { time : '2023-08-01 17:19', height : -149 }
+  };
+  
+  var D20230802 = {
+   low : { time : '2023-08-02 05:36', height : -39 },
+   high : { time : '2023-08-02 11:28', height : 134 },
+   end : { time : '2023-08-02 18:12', height : -155 }
+  };
+
+  var D20230803 = {
+   low : { time : '2023-08-03 06:23', height : -50 },
+   high : { time : '2023-08-03 12:19', height : 144 },
+   end : { time : '2023-08-03 19:00', height : -154 }
+  };
+
+  var D20230804 = {
+   low : { time : '2023-08-04 07:11', height : -63 },
+   high : { time : '2023-08-04 13:08', height : 148 },
+   end : { time : '2023-08-04 19:46', height : -146 }
+  };
+
+  var ret = '<div class="">';
+  ret += '<button onclick=\'loadData(' + JSON.stringify(D20230730) + ')\'>澎湖馬公 2023/07/30</button>';
+  ret += '<button onclick=\'loadData(' + JSON.stringify(D20230731) + ')\'>澎湖馬公 2023/07/31</button>';
+  ret += '<br/>';
+  ret += '<button onclick=\'loadData(' + JSON.stringify(D20230801) + ')\'>澎湖馬公 2023/08/01</button>';
+  ret += '<button onclick=\'loadData(' + JSON.stringify(D20230802) + ')\'>澎湖馬公 2023/08/02</button>';
+  ret += '<button onclick=\'loadData(' + JSON.stringify(D20230803) + ')\'>澎湖馬公 2023/08/03</button>';
+  ret += '<button onclick=\'loadData(' + JSON.stringify(D20230804) + ')\'>澎湖馬公 2023/08/04</button>';
+  ret += '</div>';
+  document.getElementById("shortcut").innerHTML = ret;
+}
+function loadData(obj) {
+  var [lowDate, lowTime] = obj["low"]["time"].split(' ');
+  var [highDate, highTime] = obj["high"]["time"].split(' ');
+  var [endDate, endTime] = obj["end"]["time"].split(' ');
+  var lowHeight = obj["low"]["height"];
+  var highHeight = obj["high"]["height"];
+  var endHeight = obj["end"]["height"];
+
+  document.querySelector('input[name="lowDate"]').value = lowDate;
+  document.querySelector('input[name="lowTime"]').value = lowTime;
+  document.querySelector('input[name="lowHeight"]').value = lowHeight;
+  document.querySelector('input[name="highDate"]').value = highDate;
+  document.querySelector('input[name="highTime"]').value = highTime;
+  document.querySelector('input[name="highHeight"]').value = highHeight;
+  document.querySelector('input[name="endDate"]').value = endDate;
+  document.querySelector('input[name="endTime"]').value = endTime;
+  document.querySelector('input[name="endHeight"]').value = endHeight;
+  calc();
+}
+function init() {
+  shortcut();
+}
+init();
+</script>
+</body>
+</html>
