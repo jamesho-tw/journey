@@ -132,7 +132,7 @@ function getRisingTideData(fishing) {
   var diff = (toDate(highDate, highTime)-toDate(lowDate, lowTime))/(60*1000);
   var ret = '<table border="1">';
   if (!fishing) {
-    ret += '<tr><th colspan="3">乾潮至滿潮約為 ' + diff + ' 分鐘 ( ' + toDurationString(toDate(lowDate, lowTime), toDate(highDate, highTime)) + ' )</th></tr>';
+    ret += '<tr><th colspan="3">乾潮至滿潮約為 ' + diff.toString() + ' 分鐘 ( ' + toDurationString(toDate(lowDate, lowTime), toDate(highDate, highTime)) + ' )</th></tr>';
   }
   var time = toDate(lowDate, lowTime);
   for (var i = 0; i < 10; i++) {
