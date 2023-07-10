@@ -1,0 +1,619 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} h1,h2,h3,h4,h5 {white-space:pre-line}
+</style><title>README</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='澎湖'><span>澎湖</span></h1><h2 id='馬公市區'><span>馬公市區</span></h2><p><span> </span><strong><span>市區行程</span></strong><span> (購買紀念品及名產)</span></p><ul><li><p><span>澎湖魚市場(馬公第三漁港) </span><code>30 min</code></p><blockquote><p><code>營業時間: 04:00 ~ 12:00</code></p></blockquote></li><li><p><span>文康街(早餐街) </span><code>30 min</code></p><blockquote><p><span>北新橋牛雜湯, 鐘記燒餅</span></p></blockquote></li><li><p><span>北辰市場(乾貨, 漁貨) </span><code>1 HR</code></p><blockquote><p><span>老張燒餅舖, 老地方排骨麵, 金瓜麵猴(小肉粽), 百福號水煎包</span></p></blockquote></li><li><p><span>天后宮(國定古蹟) </span><code>10 min</code></p><blockquote><p><span>阿豹(香腸, 米腸, 關東煮), 福台排骨麵, 郵局蔥油餅</span>
+<span>香腸比較推薦</span><strong><span>關帝廟香腸</span></strong><span>(朝陽里武聖廟廟門口)</span></p></blockquote></li><li><p><span>中央老街(四眼井, 萬軍井, 施公祠, 摸乳巷) </span><code>30 min</code></p><blockquote><p><span>乾益堂中藥行(藥膳蛋, 豆干), 馬路益(燒肉飯, 蛋包飯), 肉圓(盛興製餅舖對面)</span></p></blockquote></li><li><p><span>順承門(國定古蹟) </span><code>20 min</code></p></li><li><p><span>篤行十村(眷村文化保存園區, 張雨生紀念館, 潘安邦紀念館) </span><code>20 min</code></p><blockquote><p><span>篤行小火車 </span><strong><font color="red"><code>門票</code></font></strong></p></blockquote></li><li><p><span>媽宮城隍廟(國定古蹟) </span><code>10 min</code></p><blockquote><p><span>城隍廟前燒肉飯(燒肉飯), 讚哥(燒肉飯), 紫光複合式餐飲(炒飯, 意麵, 綠豆沙), 玉冠嫩仙草, 紫玉仙草</span></p></blockquote></li><li><p><span>觀音亭(西瀛虹橋) </span><code>1 ~ 2 HR</code></p><blockquote><p><span>建議下午玩水, 晚上看夜景</span></p></blockquote></li></ul><p><span> </span><strong><span>名產推薦</span></strong></p><ul><li><p><a href='https://www.google.com/maps/place/%E4%BD%B3%E6%9C%8B%E5%90%8D%E7%94%A2%E7%B8%BD%E5%8C%AF/@23.5662288,119.5658741,15z/data=!4m6!3m5!1s0x346c5af2de461fff:0x8449b7dd960c5ec8!8m2!3d23.5662288!4d119.5658741!16s%2Fg%2F1tjmbdk3?entry=ttu'><span>佳朋名產總匯</span></a></p></li><li><p><a href='https://www.google.com/maps/place/%E6%AD%A3%E7%BE%A9%E9%A4%85%E8%A1%8C/@23.5697753,119.5709248,21z/data=!4m14!1m7!3m6!1s0x346c5aee7a50df63:0x9d2b8340aa103c93!2z5q2j576p6aSF6KGM!8m2!3d23.5697633!4d119.5709881!16s%2Fg%2F11ysklskd!3m5!1s0x346c5aee7a50df63:0x9d2b8340aa103c93!8m2!3d23.5697633!4d119.5709881!16s%2Fg%2F11ysklskd?entry=ttu'><span>正義餅行</span></a><span>(花生酥)</span></p></li><li><p><a href='https://www.google.com/maps/place/%E5%BE%A1%E5%93%81%E5%AE%B6%E9%A3%9F%E5%93%81/@23.5642684,119.5645357,20.5z/data=!4m6!3m5!1s0x346c5a8cc0c5cfa9:0x8eb301742e4c6e51!8m2!3d23.5641824!4d119.5645341!16s%2Fg%2F11h0wf8d6?entry=ttu'><span>御品家</span></a><span>(黑糖糕)</span></p></li><li><p><a href='https://www.google.com/maps/place/%E7%9B%9B%E8%88%88%E8%A3%BD%E9%A4%85%E8%88%96+%E6%BE%8E%E6%B9%96%E4%BC%B4%E6%89%8B%E7%A6%AE+%E6%BE%8E%E6%B9%96%E5%90%8D%E7%94%A2+%E6%BE%8E%E6%B9%96%E6%8E%A8%E8%96%A6%E7%BE%8E%E9%A3%9F+%E6%BE%8E%E6%B9%96%E5%AE%85%E9%85%8D%E7%BE%8E%E9%A3%9F+%E6%BE%8E%E6%B9%96%E9%B9%B9%E9%A4%85+%E6%BE%8E%E6%B9%96%E8%8A%B1%E7%94%9F%E9%85%A5/@23.5657212,119.5653253,20.25z/data=!4m6!3m5!1s0x346c5af32fd9ba91:0xddd6112b83f2dfc!8m2!3d23.565653!4d119.5651549!16s%2Fg%2F1tgdqwkc?entry=ttu'><span>盛興製餅舖</span></a><span>(鹹餅)</span></p></li><li><p><a href='https://www.google.com/maps/place/%E5%A4%A7%E7%AB%8B%E8%8A%B1%E6%9E%9D%E4%B8%B8/@23.5707516,119.5656413,17.75z/data=!4m6!3m5!1s0x346c5aee0c0392d3:0xd11e3623c0be5266!8m2!3d23.5698626!4d119.5698635!16s%2Fg%2F1th7w2v_?entry=ttu'><span>大立</span></a><span>(花枝丸)</span></p></li></ul><blockquote><p><span>黑糖糕, 鹹餅, 花生酥, 小管干, 石鮔干, 珠螺, 丁香魚, 干貝醬, 花枝丸, 手工麵線, 風茹茶, 仙人掌, 狗母魚鬆, 狗母魚丸, 紫菜, 海菜, 絲瓜</span>
+<span>刻印章請提前處理(來不及也可以寄回台灣)</span></p></blockquote><p><span> </span><strong><span>餐廳推薦</span></strong></p><ul><li><p><span>日新餐廳(金瓜米粉)</span></p></li><li><p><span>阿華漁村海鮮料理</span></p></li><li><p><span>清峰海鮮</span></p></li></ul><p><span> </span><strong><span>其他美食推薦</span></strong></p><ul><li><p><span>三哥雞排三多總店(雞排, 雞肉串)</span></p></li><li><p><span>阿發塩酥雞(雞皮)</span></p></li><li><p><span>謝家肉餅</span></p></li><li><p><span>閣再來小吃部(肉燥飯, 炒麵, 黑白切)</span></p><blockquote><p><span>以前是澎湖最佛心的小吃部(不在意衛生環境的話)</span></p></blockquote></li></ul><h2 id='澎湖南環'><span>澎湖南環</span></h2><p><span> </span><strong><span>湖西鄉</span></strong></p><ul><li><p><span>菓葉(觀日樓, 灰窯) </span><code>30 min</code></p><blockquote><p><span>請參考日出時刻表, 建議在日出前 30 分鐘前抵達</span></p></blockquote></li><li><p><span>隘門沙灘 </span><code>2 ~ 3 HR</code></p><blockquote><p><span>踏浪, 玩水, 玩沙</span>
+<span>潮間帶(珊瑚礁) </span><code>日間</code><span> </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code></font></strong></p></blockquote></li><li><p><span>奎壁山(摩西分海) </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><code>1 ~ 2 HR</code></p><blockquote><p><span>退潮才能看到摩西分海</span>
+<span>建議在乾潮前 1 小時前抵達</span></p></blockquote></li></ul><p><span> </span><strong><span>馬公市</span></strong></p><ul><li><p><span>風櫃洞(風櫃濤聲) </span><code>30 min</code></p><blockquote><p><span>冬天才有風櫃濤聲</span>
+<span>熱門釣點 </span><code>磯釣</code></p></blockquote></li><li><p><span>蛇頭山(日艦落海, 法軍紀念碑, 荷蘭人登陸點紀念碑) </span><code>30 min</code></p></li><li><p><span>嵵裡沙灘 </span><strong><font color="darkorange"><code>夕陽</code></font></strong><span> </span><code>2 ~ 3 HR</code></p><blockquote><p><span>踏浪, 玩水, 玩沙</span>
+<span>傳統牽罟活動 </span><strong><font color="red"><code>預約</code></font></strong>
+<span>水上活動 </span><strong><font color="red"><code>門票</code></font></strong></p></blockquote></li><li><p><span>水產種苗繁殖場 </span><code>1 ~ 2 HR</code></p><blockquote><p><span>種珊瑚體驗 </span><strong><font color="red"><code>預約</code><span> </span><code>免門票</code></font></strong></p></blockquote></li><li><p><span>山水(沙灘, 漁港) </span><strong><font color="darkorange"><code>夕陽</code></font></strong><span> </span><code>1 ~ 2 HR</code></p><blockquote><p><span>踏浪, 玩水, 玩沙</span>
+<span>晚上可以來尋找夜光沙(發光的浮游生物)</span>
+<span>山水漁港 </span><code>磯釣</code><span> </span><code>前打</code><span> </span><code>岸拋(頭足)</code></p></blockquote></li><li><p><span>鎖港(鎖港北石塔, 鎖港南鎮風塔, 鎖港漁市) </span><code>1 HR</code></p><blockquote><p><code>漁市營業時間: 06:00 ~ 07:00, 15:00 ~ 16:00</code>
+<span>鎖港海蝕洞 </span><code>磯釣</code><span>, 鎖港漁港 </span><code>岸拋(頭足)</code>
+<span>金鎖港飲食(米糕, 肉粽)</span></p></blockquote></li></ul><h2 id='澎湖北環'><span>澎湖北環</span></h2><p><span> </span><strong><span>白沙鄉</span></strong></p><ul><li><p><span>中屯社區(澎湖絲瓜裝置藝術)  </span><code>5 min</code></p></li><li><p><span>中屯風車(中屯風力園區) </span><code>1 ~ 2 HR</code></p><blockquote><p><span>白天風景優美, 建議停留 15 分鐘</span>
+<span>潮間帶(珊瑚礁) </span><code>夜間</code><span> </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code><span> </span><code>頭燈</code><span> </span><code>手套</code></font></strong></p></blockquote></li><li><p><span>講美(青星斑裝置藝術) </span><code>5 min</code></p><blockquote><p><span>回家炸粿, 清峰海鮮</span></p></blockquote></li><li><p><span>城前鮮蚵觀光碼頭(牡蠣裝置藝術) </span><code>5 min</code></p></li><li><p><span>梭子蟹裝置藝術 </span><code>5 min</code></p></li><li><p><span>澎湖水族館 </span><strong><font color="red"><code>門票</code></font></strong><span> </span><code>1 ~ 2 HR</code></p></li><li><p><span>岐頭 </span><code>1 ~ 2 HR</code></p><blockquote><p><span>抱墩(日間) </span><strong><font color="red"><code>預約</code></font></strong>
+<span>潮間帶 </span><code>日間</code><span> </span><code>夜間</code><span> </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code><span> </span><code>頭燈</code><span> </span><code>手套</code></font></strong></p></blockquote></li><li><p><span>後寮天堂路 </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code></font></strong><span> </span><code>30 min</code></p></li><li><p><span>通樑古榕 </span><code>1 ~ 2 HR</code></p><blockquote><p><span>易家仙人掌冰, 阿姨仙人掌冰(花枝丸, 炸小管)</span></p></blockquote></li><li><p><span>跨海大橋 </span><code>30 min</code></p></li></ul><p><span> </span><strong><span>西嶼鄉</span></strong></p><ul><li><p><span>漁翁島遊客服務中心(海洋典藏館, 漁翁雕像, 彩繪魚) </span><code>30 min</code></p><blockquote><p><span>海洋典藏館 </span><strong><font color="red"><code>打卡免門票</code></font></strong>
+<span>熱門釣點 </span><code>磯釣</code></p></blockquote></li><li><p><span>綠蠵龜裝置藝術 </span><code>5 min</code></p></li><li><p><span>竹灣大義宮(珊瑚洞, 海龜) </span><code>30 min</code></p><blockquote><p><span>已經沒有海龜了只有海龜立體造景</span></p></blockquote></li><li><p><span>小門(鯨魚洞, 小門地質館) </span><code>1 ~ 2 HR</code></p><blockquote><p><span>阿虹的店(小管麵線, 海膽, 燒酒螺)</span>
+<span>小萍的店(絲瓜小管麵線)</span>
+<span>秀鳳姐的店(小管麵線)</span>
+<span>阿挺海鮮(小管生魚片)</span></p></blockquote></li><li><p><span>二崁聚落(陳家古厝) </span><code>1 HR</code></p><blockquote><p><span>參觀澎湖傳統建築</span>
+<span>二馬豆花, 二崁杏仁茶, 魚好(生魚片)</span></p></blockquote></li><li><p><span>大菓葉柱狀玄武岩, 三石壁 </span><code>30 min</code></p></li><li><p><span>夢幻沙灘(網垵沙灘) </span><strong><font color="darkorange"><code>夕陽</code></font></strong><span> </span><code>30 min</code></p></li><li><p><span>池西岩瀑(九孔瀑布) </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code></font></strong><span> </span><code>30 min</code></p><blockquote><p><span>漲退潮時有不同風景</span></p></blockquote></li><li><p><span>小池角雙曲橋 </span><code>30 min</code></p><blockquote><p><span>西嶼餐廳, 清心飲食店</span></p></blockquote></li><li><p><span>池西虎目滬(單心石滬) </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code></font></strong><span> </span><code>1 HR</code></p><blockquote><p><span>退潮才可走進石滬</span></p></blockquote></li><li><p><span>學仔尾海蝕平台(人面獅身玄武岩) </span><strong><font color="blue"><code>潮汐</code></font></strong><span> </span><strong><font color="indigo"><code>防滑鞋</code></font></strong><span> </span><code>30 min</code></p><blockquote><p><span>退潮才可走到人面獅身玄武岩</span>
+<span>熱門釣點 </span><code>磯釣</code><span> </span><code>岸拋(頭足)</code></p></blockquote></li><li><p><span>內垵遊憩區(內垵沙灘), 內垵南漁港(彩色消波塊) </span><code>1 HR</code></p><blockquote><p><span>內垵南漁港 </span><code>岸拋(頭足)</code></p></blockquote></li><li><p><span>西嶼西臺(西台古堡)(國定古蹟) </span><strong><font color="red"><code>門票</code></font></strong><span> </span><code>30 min</code></p></li><li><p><span>外垵漁港, 三仙塔(小希臘) </span><code>30 min</code></p><blockquote><p><span>三仙塔日夜有不同風景</span>
+<span>外垵刈包福氣早餐店, 滿拿炸粿</span></p></blockquote></li><li><p><span>漁翁島燈塔(西嶼燈塔)(國定古蹟) </span><code>30 min</code></p><blockquote><p><span>沿途會經過外垵草原, 注意有牛群</span></p></blockquote></li></ul><p>&nbsp;</p></div></div>
+</body>
+</html>
